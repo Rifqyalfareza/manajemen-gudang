@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class StockIn extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $guarded = [];
     public function product()
@@ -19,5 +19,13 @@ class StockIn extends Model
     public function supplier()
     {
         return $this->belongsTo(Supplier::class, 'supplier_id');
+    }
+    protected static function booted()
+    {
+        static::created(function ($stockIn) {
+            if ($stockIn->product) {
+                $stockIn->product->increment('stock', $stockIn->quantity);
+            }
+        });
     }
 }

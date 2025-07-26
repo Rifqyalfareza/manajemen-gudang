@@ -22,7 +22,10 @@ class StockInResource extends Resource
 {
     protected static ?string $model = StockIn::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-archive-box-arrow-down';
+    protected static ?string $navigationLabel = 'Stok Masuk';
+    protected static ?string $pluralLabel = 'Daftar Stok Masuk';
+    protected static ?string $navigationGroup = 'Inventory Management';
 
     public static function form(Form $form): Form
     {
@@ -31,11 +34,15 @@ class StockInResource extends Resource
                 Select::make('product_id')
                     ->relationship('product', 'Name')
                     ->required()
-                    ->label('Product'),
+                    ->label('Product')
+                    ->searchable()
+                    ->preload(),
                 Select::make('supplier_id')
                     ->relationship('supplier', 'Name')
                     ->required()
-                    ->label('Supplier'),
+                    ->label('Supplier')
+                    ->searchable()
+                    ->preload(),
                 TextInput::make('quantity')->required()->numeric(),
                 DatePicker::make('date')->required(),
             ]);
@@ -45,11 +52,11 @@ class StockInResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('no')->rowIndex()->label('#'),
-                TextColumn::make('product.name')->label('Product'),
-                TextColumn::make('supplier.name')->label('Supllier'),
-                TextColumn::make('quantity')->label('Quantity'),
-                TextColumn::make('date')->label('Date'),
+                TextColumn::make('no')->rowIndex()->label('#')->searchable(),
+                TextColumn::make('product.name')->label('Product')->searchable(),
+                TextColumn::make('supplier.name')->label('Supllier')->searchable(),
+                TextColumn::make('quantity')->label('Quantity')->searchable(),
+                TextColumn::make('date')->label('Date')->searchable()->date(),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
@@ -78,8 +85,8 @@ class StockInResource extends Resource
     {
         return [
             'index' => Pages\ListStockIns::route('/'),
-            'create' => Pages\CreateStockIn::route('/create'),
-            'edit' => Pages\EditStockIn::route('/{record}/edit'),
+            // 'create' => Pages\CreateStockIn::route('/create'),
+            // 'edit' => Pages\EditStockIn::route('/{record}/edit'),
         ];
     }
 

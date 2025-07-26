@@ -5,6 +5,8 @@ namespace App\Filament\Resources\StockInResource\Pages;
 use App\Filament\Resources\StockInResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use App\Models\Product;
+
 
 class ListStockIns extends ListRecords
 {
@@ -16,4 +18,9 @@ class ListStockIns extends ListRecords
             Actions\CreateAction::make(),
         ];
     }
+    // protected function afterCreate(): void
+    // {
+    //     $product = $this->record->product;
+    //     $product->increment('stock', $this->record->quantity);
+    // }
 }

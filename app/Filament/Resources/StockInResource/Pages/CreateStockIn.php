@@ -15,9 +15,9 @@ class CreateStockIn extends CreateRecord
     {
         return $this->getResource()::getUrl('index');
     }
-    protected function afterCreate(): void
-    {
-        $product = $this->record->product;
-        $product->increment('stock', $this->record->quantity);
-    }
+    // protected function afterCreate(): void
+    // {
+    //     $product = $this->record->product;
+    //     $product->increment('stock', $this->record->quantity);
+    // }
 }
