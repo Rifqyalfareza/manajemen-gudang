@@ -55,7 +55,7 @@ class StockInResource extends Resource
                 TextColumn::make('no')->rowIndex()->label('#')->searchable(),
                 TextColumn::make('product.name')->label('Product')->searchable(),
                 TextColumn::make('supplier.name')->label('Supllier')->searchable(),
-                TextColumn::make('quantity')->label('Quantity')->searchable(),
+                TextColumn::make('quantity')->label('Quantity')->searchable()->badge(),
                 TextColumn::make('date')->label('Date')->searchable()->date(),
             ])
             ->filters([

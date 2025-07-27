@@ -26,4 +26,8 @@ class Product extends Model
     {
         return $this->hasMany(StockIn::class);
     }
+    public function stockOuts()
+    {
+        return $this->hasMany(StockOut::class);
+    }
 }

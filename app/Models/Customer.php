@@ -15,4 +15,8 @@ class Customer extends Model
         'phone',
         'address',
     ];
+    public function stockOuts()
+    {
+        return $this->hasMany(StockOut::class, 'customer_id');
+    }
 }
