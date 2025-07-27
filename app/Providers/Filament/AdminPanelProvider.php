@@ -29,6 +29,8 @@ class AdminPanelProvider extends PanelProvider
             ->login()
             ->brandName('Manajemen Gudang')
             ->sidebarCollapsibleOnDesktop()
+            ->registration()
+            ->maxContentWidth('full')
             ->colors([
                 'primary' => Color::Amber,
             ])
@@ -56,6 +58,8 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
-            ->maxContentWidth('full');
+            ->plugins([
+                \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make(),
+            ]);
     }
 }
