@@ -2,22 +2,24 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\StockOutResource\Pages;
-use App\Filament\Resources\StockOutResource\RelationManagers;
-use App\Models\StockOut;
 use Dom\Text;
 use Filament\Forms;
-use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Columns\TextColumn;
+use App\Models\Product;
+use App\Models\StockOut;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Resources\Resource;
 use Illuminate\Support\Facades\Date;
+use Filament\Forms\Components\Select;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\DatePicker;
+use Illuminate\Database\Eloquent\Builder;
+use Filament\Tables\Filters\TrashedFilter;
+use App\Filament\Resources\StockOutResource\Pages;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\StockOutResource\RelationManagers;
 
 class StockOutResource extends Resource
 {
@@ -33,13 +35,29 @@ class StockOutResource extends Resource
         return $form
             ->schema([
                 Select::make('product_id')
+                ->relationship('product', 'name')
                     ->label('Product')
                     ->required()
-                    ->relationship('product', 'name'),
+                    ->reactive()
+                    ->afterStateUpdated(function ($state, callable $set) {
+                        $product = Product::find($state);
+                        if ($product) {
+                            $set('Stok', $product->stock);
+                        } else {
+                            $set('Stok', null);
+                        }
+                    }),
+
+                TextInput::make('Stok')
+                    ->label('Stok Tersedia')
+                    ->disabled()
+                    ->reactive()
+                    ->dehydrated(false),
                 Select::make('customer_id')
                     ->label('Customer')
                     ->required()
                     ->relationship('customer', 'name'),
+
                 TextInput::make('quantity')
                     ->label('Quantity')
                     ->required()
@@ -47,17 +65,17 @@ class StockOutResource extends Resource
                     ->minValue(1)
                     ->rules([
                         function (\Filament\Forms\Get $get) {
-                        return function (string $attribute, $value, \Closure $fail) use ($get) {
-                            $productId = $get('product_id');
-                            $product = \App\Models\Product::find($productId);
+                            return function (string $attribute, $value, \Closure $fail) use ($get) {
+                                $productId = $get('product_id');
+                                $product = \App\Models\Product::find($productId);
 
-                            if ($product && $value > $product->stock) {
-                                $fail("Jumlah keluar melebihi stok saat ini ({$product->stock}).");
-                            }
-                        };
-                    }
+                                if ($product && $value > $product->stock) {
+                                    $fail("Jumlah keluar melebihi stok saat ini ({$product->stock}).");
+                                }
+                            };
+                        }
                     ]),
-                    DatePicker::make('date')
+                DatePicker::make('date')
                     ->label('Date')
                     ->default(Date::now())
                     ->required(),
