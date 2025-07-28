@@ -28,11 +28,13 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->brandName('Manajemen Gudang')
+            // ->brandLogo('images/warehouse_new.png')
+            ->favicon('images/warehouse_new.png')
             ->sidebarCollapsibleOnDesktop()
             ->registration()
             ->maxContentWidth('full')
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Blue,
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')

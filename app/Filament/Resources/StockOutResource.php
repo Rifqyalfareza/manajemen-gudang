@@ -25,7 +25,7 @@ class StockOutResource extends Resource
 {
     protected static ?string $model = StockOut::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-archive-box-arrow-down';
+    protected static ?string $navigationIcon = 'heroicon-o-inbox-arrow-down';
     protected static ?string $navigationLabel = 'Stok Keluar';
     protected static ?string $pluralLabel = 'Daftar Stok Keluar';
     protected static ?string $navigationGroup = 'Inventory Management';
@@ -91,6 +91,9 @@ class StockOutResource extends Resource
                     ->label('#')
                     ->sortable()
                     ->searchable(),
+                TextColumn::make('product.code')
+                    ->label('Kode Produk')
+                    ->searchable(),
                 TextColumn::make('product.name')
                     ->label('Produk')
                     ->searchable(),
@@ -113,6 +116,7 @@ class StockOutResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

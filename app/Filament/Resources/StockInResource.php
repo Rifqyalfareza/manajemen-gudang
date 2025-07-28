@@ -22,7 +22,7 @@ class StockInResource extends Resource
 {
     protected static ?string $model = StockIn::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-archive-box-arrow-down';
+    protected static ?string $navigationIcon = 'heroicon-o-inbox-arrow-down';
     protected static ?string $navigationLabel = 'Stok Masuk';
     protected static ?string $pluralLabel = 'Daftar Stok Masuk';
     protected static ?string $navigationGroup = 'Inventory Management';
