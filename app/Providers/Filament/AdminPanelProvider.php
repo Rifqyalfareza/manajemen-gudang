@@ -28,7 +28,6 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->brandName('Manajemen Gudang')
-            // ->brandLogo('images/warehouse_new.png')
             ->favicon('images/warehouse_new.png')
             ->sidebarCollapsibleOnDesktop()
             ->registration()
@@ -42,10 +41,10 @@ class AdminPanelProvider extends PanelProvider
                 Pages\Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
-            ->widgets([
-                Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
-            ])
+            // ->widgets([
+            //     Widgets\AccountWidget::class,
+            //     Widgets\FilamentInfoWidget::class,
+            // ])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
