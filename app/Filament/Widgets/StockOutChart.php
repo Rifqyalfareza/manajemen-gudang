@@ -9,6 +9,7 @@ use Filament\Widgets\ChartWidget;
 
 class StockOutChart extends ChartWidget
 {
+    protected static ?int $sort = 3;
     protected static ?string $heading = 'Stok Keluar Per Bulan';
 
     protected function getData(): array

@@ -17,7 +17,12 @@ class ProductFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'code' => 'PRD-' . mt_rand(1000, 9999),
+            'name' => $this->faker->word,
+            'categories_id' => \App\Models\Category::factory(),
+            'unit_id' => \App\Models\Unit::factory(),
+            'stock' => $this->faker->numberBetween(1, 1000),
+            'min_stock' => $this->faker->numberBetween(1, 10),
         ];
     }
 }

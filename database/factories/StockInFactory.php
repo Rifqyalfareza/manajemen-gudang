@@ -17,7 +17,10 @@ class StockInFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'product_id' => \App\Models\Product::factory(),
+            'supplier_id' => \App\Models\Supplier::factory(),
+            'quantity' => $this->faker->numberBetween(1, 100),
+            'date' => $this->faker->dateTimeBetween(now()->startOfYear(), now()->endOfYear()),
         ];
     }
 }

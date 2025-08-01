@@ -9,6 +9,7 @@ use Filament\Widgets\ChartWidget;
 
 class StockInChart extends ChartWidget
 {
+    protected static ?int $sort = 2;
     protected static ?string $heading = 'Stok Masuk Per Bulan';
 
     protected function getData(): array

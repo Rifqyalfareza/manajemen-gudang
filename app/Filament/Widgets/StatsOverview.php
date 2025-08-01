@@ -12,6 +12,7 @@ use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 
 class StatsOverview extends BaseWidget
 {
+    protected static ?int $sort = 1;
     protected static ?string $title = 'Statistik';
     protected function getStats(): array
     {

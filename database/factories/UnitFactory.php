@@ -17,7 +17,8 @@ class UnitFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => $this->faker->word,
+            // Additional fields can be added here as needed
         ];
     }
 }
